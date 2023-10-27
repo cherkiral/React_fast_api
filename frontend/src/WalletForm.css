@@ -1,0 +1,104 @@
+/* Custom input field */
+.wallet-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 10px 0 10px -100px;
+}
+
+/* Custom input field */
+.custom-input {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 22px;
+  border: none;
+  display: block;
+  margin: 10px 0 10px 20px; /* Adjust the left margin here */
+  padding: 5px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0);
+  transition: padding-top 0.2s ease, margin-top 0.2s ease;
+  overflow-x: hidden;
+  width: 70%; /* Reduce the width to move it more to the left */
+}
+
+.custom-input:focus {
+  outline: 0;
+  padding-top: 35px;
+}
+
+.custom-input + label {
+  display: block;
+  position: relative;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+  width: 10%;
+  border-top: 1px solid red;
+  transition: width 0.4s ease;
+  height: 0px;
+  font-size: 22px;
+}
+
+.custom-input:focus + label {
+  width: 70%; /* Match the input width */
+}
+
+.custom-input:focus + label > span {
+  top: -100px;
+  font-size: 22px;
+  color: #333;
+}
+
+.custom-input:valid + label {
+  border-color: green;
+}
+
+.custom-input:invalid {
+  box-shadow: none;
+}
+
+.custom-input + label > span {
+  font-weight: 300;
+  margin: 0;
+  position: absolute;
+  color: #8F8F8F;
+  font-size: 48px;
+  top: -66px;
+  left: 0px;
+  z-index: -1;
+  transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+}
+
+
+
+/* Custom submit button */
+input[type="submit"] {
+  border: none;
+  color: #fff;
+  background: transparent; /* Set the background to be transparent */
+  font-size: 1.6em;
+  padding: 1.2em 2.5em;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:active {
+  background: transparent; /* Set the background to be transparent on hover and active states */
+  color: #D4D3DD; /* Change text color on hover and active states */
+}
+
+
+
+
