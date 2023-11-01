@@ -1,6 +1,9 @@
+import requests
 from fastapi import FastAPI
-from etherscan import get_transaction_amount
 from fastapi.middleware.cors import CORSMiddleware
+
+API_KEY = 'RA7EI7B1HRXFBN14VQVQ3WYM488HVWVH8Q'
+ENDPOINT_URL = 'https://api.etherscan.io/api'
 
 app = FastAPI()
 
@@ -11,11 +14,42 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+def get_last_transactions(address, amount):
+    data = {
+        'module': 'account',
+        'action': 'txlist',
+        'address': address,
+        'page': 1,
+        'offset': amount,
+        'startblock': 0,
+        'endblock': 27025780,
+        'sort': 'desc',
+        'apikey': API_KEY
+    }
 
-@app.get("/balance/{wallet_address}")
-def get_balance(wallet_address: str):
-    report = get_transaction_amount(wallet_address, 0)
-    return {"wallet_address": wallet_address, 'amount': report['amount'], 'tokenName': report['tokenName']}
+    r = requests.get(ENDPOINT_URL, params=data)
+    responce = r.json()['result']
+    return responce
+@app.get("/get_last_transactions/{wallet_address}")
+def get_last_transactions(wallet_address: str, number_of_transactions: int):
+    def get_last_transactions(address, amount):
+        data = {
+            'module': 'account',
+            'action': 'txlist',
+            'address': address,
+            'page': 1,
+            'offset': amount,
+            'startblock': 0,
+            'endblock': 27025780,
+            'sort': 'desc',
+            'apikey': API_KEY
+        }
+
+        r = requests.get(ENDPOINT_URL, params=data)
+        responce = r.json()['result']
+        return responce
+    tx_list = get_last_transactions(wallet_address, number_of_transactions)
+    return {'data': tx_list}
 
 if __name__ == "__main__":
     import uvicorn

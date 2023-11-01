@@ -5,13 +5,13 @@ API_KEY = 'RA7EI7B1HRXFBN14VQVQ3WYM488HVWVH8Q'
 ENDPOINT_URL = 'https://api.etherscan.io/api'
 
 
-def get_transaction_amount(address, number):
+def get_last_transactions(address, amount):
     data = {
         'module': 'account',
-        'action': 'tokentx',
+        'action': 'txlist',
         'address': address,
         'page': 1,
-        'offset': 100,
+        'offset': amount,
         'startblock': 0,
         'endblock': 27025780,
         'sort': 'desc',
@@ -19,13 +19,5 @@ def get_transaction_amount(address, number):
     }
 
     r = requests.get(ENDPOINT_URL, params=data)
-    responce = r.json()['result'][number]
-    decimal = int(responce['tokenDecimal'])
-    value = int(responce['value'])
-    tokenName = responce['tokenName']
-    amount = round(value / (10 ** decimal), 4)
-    return_dict = {
-        'tokenName': tokenName,
-        'amount': amount,
-    }
-    return return_dict
+    responce = r.json()['result']
+    return responce
